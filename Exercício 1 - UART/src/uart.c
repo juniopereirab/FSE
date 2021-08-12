@@ -125,7 +125,7 @@ void requestUartString(int uart0_filestream){
 }
 
 void sendUartInteger(int uart0_filestream){
-    char payload[9] = {0xB1, 0, 0, 5, 0, 1, 4, 3, 8};
+    char payload[9] = {0xB1, 0x32, 0x00, 0x00, 0x00, 1, 4, 3, 8};
 
     printf("Buffers de memória criados!\n");
 
