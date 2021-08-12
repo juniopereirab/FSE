@@ -14,7 +14,9 @@ int main(int argc, const char * argv[]) {
     unsigned char *p_tx_buffer;
     
     p_tx_buffer = &tx_buffer[0];
-    *p_tx_buffer++ = '163';
+    *p_tx_buffer++ = '1';
+    *p_tx_buffer++ = '6';
+    *p_tx_buffer++ = '3';
     *p_tx_buffer++ = '3';
     *p_tx_buffer++ = 'O';
     *p_tx_buffer++ = 'l';
