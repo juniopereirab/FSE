@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>         //Used for UART
 #include <fcntl.h>          //Used for UART
 #include <termios.h>        //Used for UART
@@ -28,7 +29,51 @@ int initUart () {
     return uart0_filestream;
 }
 
-void writeUart(int uart0_filestream, unsigned char tx_buffer[20], unsigned char *p_tx_buffer) {
+
+void readUart(int uart0_filestream, char *type) {
+    // Read up to 255 characters from the port if they are there
+    int rx_length;
+    int received_int;
+    float received_float;
+    char received[256];
+    
+    if(strcmp(type, "integer") == 0){
+        rx_length = read(uart0_filestream, &received_int, 4);
+        
+    }
+    else if(strcmp(type, "float") == 0){
+        rx_length = read(uart0_filestream, &received_float, 4);
+    }
+    else if(strcmp(type, "string") == 0){
+        rx_length = read(uart0_filestream, received, 256);
+        received[rx_length] = '\0';
+    }
+
+    if (rx_length < 0)
+    {
+        printf("Erro na leitura.\n"); //An error occured (will occur if there are no bytes)
+    }
+    else if (rx_length == 0)
+    {
+        printf("Nenhum dado disponível.\n"); //No data waiting
+    }
+    else
+    {
+        if(strcmp(type, "integer") == 0){
+            printf("Valor Inteiro Recebido: %d\n", received_int);
+            
+        }
+        else if(strcmp(type, "float") == 0){
+            printf("Valor Float Recebido: %f\n", received_float);
+
+        }
+        else if(strcmp(type, "string") == 0){
+            printf("String Recebida: %s\n", received);
+        }
+    }
+}
+
+void writeUart(int uart0_filestream, unsigned char *p_tx_buffer, unsigned char tx_buffer[20]){
     if (uart0_filestream != -1)
     {
         printf("Escrevendo caracteres na UART ...");
@@ -46,22 +91,54 @@ void writeUart(int uart0_filestream, unsigned char tx_buffer[20], unsigned char 
     sleep(1);
 }
 
-void readUart(int uart0_filestream) {
-    // Read up to 255 characters from the port if they are there
-    unsigned char rx_buffer[256];
-    int rx_length = read(uart0_filestream, (void*)rx_buffer, 255);      //Filestream, buffer to store in, number of bytes to read (max)
-    if (rx_length < 0)
-    {
-        printf("Erro na leitura.\n"); //An error occured (will occur if there are no bytes)
-    }
-    else if (rx_length == 0)
-    {
-        printf("Nenhum dado disponível.\n"); //No data waiting
-    }
-    else
-    {
-        //Bytes received
-        rx_buffer[rx_length] = '\0';
-        printf("%i Bytes lidos : %s\n", rx_length, rx_buffer);
-    }
+void requestUartInteger(int uart0_filestream){
+    unsigned char tx_buffer[20];
+    unsigned char *p_tx_buffer;
+    
+    p_tx_buffer = &tx_buffer[0];
+    *p_tx_buffer++ = '0xA1';
+    *p_tx_buffer++ = '1';
+    *p_tx_buffer++ = '4';
+    *p_tx_buffer++ = '3';
+    *p_tx_buffer++ = '8';
+    printf("Buffers de memória criados!\n");
+
+    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    
+    readUart(uart0_filestream, "integer");
+}
+
+void requetUartFloat(int uart0_filestream){
+    unsigned char tx_buffer[20];
+    unsigned char *p_tx_buffer;
+    
+    p_tx_buffer = &tx_buffer[0];
+    *p_tx_buffer++ = '0xA2';
+    *p_tx_buffer++ = '1';
+    *p_tx_buffer++ = '4';
+    *p_tx_buffer++ = '3';
+    *p_tx_buffer++ = '8';
+    printf("Buffers de memória criados!\n");
+
+    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+
+    readUart(uart0_filestream, "float");
+}
+
+void requestUartString(int uart0_filestream){
+    unsigned char tx_buffer[20];
+    unsigned char *p_tx_buffer;
+    
+    p_tx_buffer = &tx_buffer[0];
+    *p_tx_buffer++ = '0xA3';
+    *p_tx_buffer++ = '1';
+    *p_tx_buffer++ = '4';
+    *p_tx_buffer++ = '3';
+    *p_tx_buffer++ = '8';
+    printf("Buffers de memória criados!\n");
+
+    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+
+    readUart(uart0_filestream, "string");
+
 }
