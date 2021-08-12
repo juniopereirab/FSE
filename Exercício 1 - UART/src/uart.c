@@ -108,7 +108,7 @@ void requestUartInteger(int uart0_filestream){
     readUart(uart0_filestream, "integer");
 }
 
-void requetUartFloat(int uart0_filestream){
+void requestUartFloat(int uart0_filestream){
     unsigned char tx_buffer[20];
     unsigned char *p_tx_buffer;
     
