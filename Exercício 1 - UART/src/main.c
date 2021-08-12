@@ -13,6 +13,7 @@ int main(int argc, const char * argv[]) {
     requestUartInteger(uart0_filestream);
     requestUartFloat(uart0_filestream);
     requestUartString(uart0_filestream);
+    sendUartInteger(uart0_filestream);
     
     close(uart0_filestream);
    return 0;

@@ -142,3 +142,57 @@ void requestUartString(int uart0_filestream){
     readUart(uart0_filestream, "string");
 
 }
+
+void sendUartInteger(int uart0_filestream){
+    unsigned char tx_buffer[20];
+    unsigned char *p_tx_buffer;
+    
+    p_tx_buffer = &tx_buffer[0];
+    *p_tx_buffer++ = 0xB1;
+    *p_tx_buffer++ = 50;
+    *p_tx_buffer++ = 1;
+    *p_tx_buffer++ = 4;
+    *p_tx_buffer++ = 3;
+    *p_tx_buffer++ = 8;
+    printf("Buffers de memória criados!\n");
+
+    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    readUart(uart0_filestream, "integer");
+}
+
+void sendUartFloat(int uart0_filestream){
+    unsigned char tx_buffer[20];
+    unsigned char *p_tx_buffer;
+    
+    p_tx_buffer = &tx_buffer[0];
+    *p_tx_buffer++ = 0xB2;
+    *p_tx_buffer++ = 25.50;
+    *p_tx_buffer++ = 1;
+    *p_tx_buffer++ = 4;
+    *p_tx_buffer++ = 3;
+    *p_tx_buffer++ = 8;
+    printf("Buffers de memória criados!\n");
+
+    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    readUart(uart0_filestream, "float");
+}
+
+void sendUartString(int uart0_filestream){
+    unsigned char tx_buffer[20];
+    unsigned char *p_tx_buffer;
+    
+    p_tx_buffer = &tx_buffer[0];
+    *p_tx_buffer++ = 0xB3;
+    *p_tx_buffer++ = 3;
+    *p_tx_buffer++ = 'o';
+    *p_tx_buffer++ = 'l';
+    *p_tx_buffer++ = 'a';
+    *p_tx_buffer++ = 1;
+    *p_tx_buffer++ = 4;
+    *p_tx_buffer++ = 3;
+    *p_tx_buffer++ = 8;
+    printf("Buffers de memória criados!\n");
+
+    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    readUart(uart0_filestream, "string");
+}
