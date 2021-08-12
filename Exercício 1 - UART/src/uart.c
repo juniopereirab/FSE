@@ -73,11 +73,11 @@ void readUart(int uart0_filestream, char *type) {
     }
 }
 
-void writeUart(int uart0_filestream, unsigned char *p_tx_buffer, unsigned char tx_buffer[20]){
+void writeUart(int uart0_filestream, char * payload, int length){
     if (uart0_filestream != -1)
     {
         printf("Escrevendo caracteres na UART ...");
-        int count = write(uart0_filestream, &tx_buffer[0], (p_tx_buffer - &tx_buffer[0]));
+        int count = write(uart0_filestream, payload, length);
         if (count < 0)
         {
             printf("UART TX error\n");
@@ -92,107 +92,61 @@ void writeUart(int uart0_filestream, unsigned char *p_tx_buffer, unsigned char t
 }
 
 void requestUartInteger(int uart0_filestream){
-    unsigned char tx_buffer[20];
-    unsigned char *p_tx_buffer;
-    
-    p_tx_buffer = &tx_buffer[0];
-    *p_tx_buffer++ = 0xA1;
-    *p_tx_buffer++ = 1;
-    *p_tx_buffer++ = 4;
-    *p_tx_buffer++ = 3;
-    *p_tx_buffer++ = 8;
+
+    char payload[5] = {0xA1, 1, 4, 3, 8};
+
     printf("Buffers de memória criados!\n");
 
-    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    writeUart(uart0_filestream, payload, 5);
     
     readUart(uart0_filestream, "integer");
 }
 
 void requestUartFloat(int uart0_filestream){
-    unsigned char tx_buffer[20];
-    unsigned char *p_tx_buffer;
     
-    p_tx_buffer = &tx_buffer[0];
-    *p_tx_buffer++ = 0xA2;
-    *p_tx_buffer++ = 1;
-    *p_tx_buffer++ = 4;
-    *p_tx_buffer++ = 3;
-    *p_tx_buffer++ = 8;
+    char payload[5] = {0xA2, 1, 4, 3, 8};
+
     printf("Buffers de memória criados!\n");
 
-    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    writeUart(uart0_filestream, payload, 5);
 
     readUart(uart0_filestream, "float");
 }
 
 void requestUartString(int uart0_filestream){
-    unsigned char tx_buffer[20];
-    unsigned char *p_tx_buffer;
+
+    char payload[5] = {0xA3, 1, 4, 3, 8};
     
-    p_tx_buffer = &tx_buffer[0];
-    *p_tx_buffer++ = 0xA3;
-    *p_tx_buffer++ = 1;
-    *p_tx_buffer++ = 4;
-    *p_tx_buffer++ = 3;
-    *p_tx_buffer++ = 8;
     printf("Buffers de memória criados!\n");
 
-    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    writeUart(uart0_filestream, payload, 5);
 
     readUart(uart0_filestream, "string");
-
 }
 
 void sendUartInteger(int uart0_filestream){
-    unsigned char tx_buffer[20];
-    unsigned char *p_tx_buffer;
+    char payload[9] = {0xB1, 0, 0, 5, 0, 1, 4, 3, 8};
 
-    p_tx_buffer = &tx_buffer[0];
-    *p_tx_buffer++ = 0xB1;
-    *p_tx_buffer++ = 60;
-    *p_tx_buffer++ = 1;
-    *p_tx_buffer++ = 4;
-    *p_tx_buffer++ = 3;
-    *p_tx_buffer++ = 8;
     printf("Buffers de memória criados!\n");
 
-    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    writeUart(uart0_filestream, payload, 9);
     readUart(uart0_filestream, "integer");
 }
 
 void sendUartFloat(int uart0_filestream){
-    unsigned char tx_buffer[20];
-    unsigned char *p_tx_buffer;
-        
-    p_tx_buffer = &tx_buffer[0];
-    *p_tx_buffer++ = 0xB2;
-    *p_tx_buffer++ = 50.50;
-    *p_tx_buffer++ = 1;
-    *p_tx_buffer++ = 4;
-    *p_tx_buffer++ = 3;
-    *p_tx_buffer++ = 8;
+    char payload[9] = {0xB2, 0, 0, 50, 50, 1, 4, 3, 8};
+
     printf("Buffers de memória criados!\n");
 
-    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    writeUart(uart0_filestream, payload, 9);
     readUart(uart0_filestream, "float");
 }
 
 void sendUartString(int uart0_filestream){
-    unsigned char tx_buffer[20];
-    unsigned char *p_tx_buffer;
     
-    p_tx_buffer = &tx_buffer[0];
-    *p_tx_buffer++ = 0xB3;
-    *p_tx_buffer++ = 3;
-    *p_tx_buffer++ = 'o';
-    *p_tx_buffer++ = 'l';
-    *p_tx_buffer++ = 'a';
-    *p_tx_buffer++ = 1;
-    *p_tx_buffer++ = 4;
-    *p_tx_buffer++ = 3;
-    *p_tx_buffer++ = 8;
+    char payload[9] = {0xB3, 3, 'o', 'l', 'a', 1, 4, 3, 8};
     printf("Buffers de memória criados!\n");
 
-    writeUart(uart0_filestream, p_tx_buffer, tx_buffer);
+    writeUart(uart0_filestream, payload, 9);
     readUart(uart0_filestream, "string");
 }
