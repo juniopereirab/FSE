@@ -166,7 +166,7 @@ void sendUartFloat(int uart0_filestream){
     
     p_tx_buffer = &tx_buffer[0];
     *p_tx_buffer++ = 0xB2;
-    *p_tx_buffer++ = '25.50';
+    *p_tx_buffer++ = 25.50;
     *p_tx_buffer++ = 1;
     *p_tx_buffer++ = 4;
     *p_tx_buffer++ = 3;
