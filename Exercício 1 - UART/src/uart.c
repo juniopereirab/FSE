@@ -146,10 +146,12 @@ void requestUartString(int uart0_filestream){
 void sendUartInteger(int uart0_filestream){
     unsigned char tx_buffer[20];
     unsigned char *p_tx_buffer;
+
+    char number = (char)50;
     
     p_tx_buffer = &tx_buffer[0];
     *p_tx_buffer++ = 0xB1;
-    *p_tx_buffer++ = '50';
+    *p_tx_buffer++ = number;
     *p_tx_buffer++ = 1;
     *p_tx_buffer++ = 4;
     *p_tx_buffer++ = 3;
@@ -163,10 +165,12 @@ void sendUartInteger(int uart0_filestream){
 void sendUartFloat(int uart0_filestream){
     unsigned char tx_buffer[20];
     unsigned char *p_tx_buffer;
+
+    char number = (char)25.50;
     
     p_tx_buffer = &tx_buffer[0];
     *p_tx_buffer++ = 0xB2;
-    *p_tx_buffer++ = 25.50;
+    *p_tx_buffer++ = number;
     *p_tx_buffer++ = 1;
     *p_tx_buffer++ = 4;
     *p_tx_buffer++ = 3;
