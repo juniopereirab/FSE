@@ -115,10 +115,6 @@ void menu() {
         system("clear");
         printf("Como deseja que sua rotina funcione?\n1) Controle ON / OFF\n2) Controle PID\n");
         scanf("%d", &option);
-        while(option != 1 && option != 2){
-            printf("Opção inválida. Escolha entre as disponíveis:\n\t1) Controle ON / OFF\n\t2) Controle PID\n");
-            scanf("%d", &option);
-        }
         option--;
         terminal = TRUE;
     }
@@ -142,10 +138,10 @@ void menu() {
     }
 
     if(option){
-        //Rotina PID
+        PID(option);
     }
     else {
-        //Rotina ON / OFF
+        onOff(option);
     }
 }
 
