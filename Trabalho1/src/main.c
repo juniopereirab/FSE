@@ -19,14 +19,14 @@ int terminal = FALSE;
 int uart_filestream, key_gpio = 1;
 struct bme280_dev bme_connection;
 
-void exit_program(){
+void exitProgram(){
     system("clear");
     printf("Programa encerrado!\n");
     closeUart(uart_filestream);
     exit(0);
 }
 
-void change_routine(){
+void changeRoutine(){
     if(terminal){
         if(key_gpio == 1){
             key_gpio = 0;
@@ -35,6 +35,76 @@ void change_routine(){
             key_gpio = 1;
         }
     }
+}
+
+void onOff(int key){
+    system("clear");
+    float hys, TI, TR, TE;
+    int value = 0;
+    printf("\n██████████████████ Método ON / OFF ██████████████████\n");
+    printf("\nDefina uma histerese: ");
+    scanf("%f", &hys);
+    do{
+        requestToUart(uart_filestream, GET_INTERNAL_TEMP);
+        TI = readFromUart(uart_filestream, GET_INTERNAL_TEMP).float_value;
+        requestToUart(uart_filestream, GET_POTENTIOMETER);
+        TR = readFromUart(uart_filestream, GET_POTENTIOMETER).float_value;
+        TE = getCurrentTemperature(&bme_connection);
+        printf("\tTI: %.2f⁰C - TR: %.2f⁰C - TE: %.2f⁰C\n", TI, TR, TE);
+        printDisplay(TI, TR, TE);
+
+        if(TR - hys >= TI){
+            turnResistanceOn(100);
+            turnFanOff();
+            value = 100;
+        }
+        else if(TR + hys <= TI){
+            turnFanOn(100);
+            turnResistanceOff();
+            value = -100;
+        }
+
+        if(!terminal){
+            requestToUart(uart_filestream, GET_KEY_VALUE);
+            key_gpio = readFromUart(uart_filestream, GET_KEY_VALUE).int_value;
+        }
+
+        sendToUart(uart_filestream, value);
+    } while (key_gpio == key);
+    printf("██████████████████████████████████████████████████████\n");
+    PID(key_gpio);
+}
+
+void PID(int key){
+    system("clear");
+    float hysteresis, TI, TR, TE;
+    printf("\n██████████████████ Método PID ██████████████████\n");
+    pidSetupConstants(5, 1, 5);
+    do{
+        requestToUart(uart_filestream, GET_INTERNAL_TEMP);
+        TI = readFromUart(uart_filestream, GET_INTERNAL_TEMP).float_value;
+
+        double value = pidControl(TI);
+        pwmControl(value);
+
+        requestToUart(uart_filestream, GET_POTENTIOMETER);
+        TR = readFromUart(uart_filestream, GET_POTENTIOMETER).float_value;
+
+        pidUpdateReference(TR);
+
+        TE = getCurrentTemperature(&bme_connection);
+        printf("\tTI: %.2f⁰C - TR: %.2f⁰C - TE: %.2f⁰C\n", TI, TR, TE);
+        printDisplay(TI, TR, TE);
+
+        if(!terminal){
+            requestToUart(uart_filestream, GET_KEY_VALUE);
+            key_gpio = readFromUart(uart_filestream, GET_KEY_VALUE).int_value;
+        }
+
+        sendToUart(uart_filestream, value);
+    } while(key_gpio == key);
+    printf("██████████████████████████████████████████████████████\n");
+    onOff(key_gpio);
 }
 
 void menu() {
@@ -59,14 +129,11 @@ void menu() {
         option = readFromUart(uart_filestream, GET_KEY_VALUE).int_value;
         printf("O valor inicial da chave é: %d\n", option);
         printf("\nQuando a chave for igual a 0:\n");
-        printf("Iniciar rotina ON/OFF\n");
+        printf("█████████Iniciar rotina ON/OFF█████████\n");
         printf("\nQuando a chave for igual a 1:\n");
-        printf("Iniciar rotina PID\n");
+        printf("█████████Iniciar rotina PID█████████\n");
         printf("\nPrecione Enter para continuar\n");
-        char enter = 0;
-        while (enter != '\r' && enter != '\n') {
-            enter = getchar();
-        }
+        getchar();
     }
     else {
         system("clear");
@@ -94,8 +161,8 @@ void start_program(){
 
 int main() {
     start_program();
-    signal(SIGINT, exit_program);
-    signal(SIGQUIT, change_routine);
+    signal(SIGINT, exitProgram);
+    signal(SIGQUIT, changeRoutine);
     printf(
         "\n"
         "█████████ Damaso Junio Pereira Brasileo █████████\n"
