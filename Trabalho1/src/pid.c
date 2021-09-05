@@ -13,17 +13,17 @@ double error_total, previous_error = 0.0;
 int signal_MAX = 100.0;
 int signal_MIN = -100.0;
 
-void pid_setup_constants(double Kp_, double Ki_, double Kd_) {
+void pidSetupConstants(double Kp_, double Ki_, double Kd_) {
   Kp = Kp_;
   Ki = Ki_;
   Kd = Kd_;
 }
 
-void pid_update_reference(float reference_) {
+void pidUpdateReference(float reference_) {
   reference = (double)reference_;
 }
 
-double pid_control(double saida_medida) {
+double pidControl(double saida_medida) {
   double error = reference - saida_medida;
 
   error_total += error;  // Acumula o error (Termo Integral)

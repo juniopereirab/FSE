@@ -63,7 +63,7 @@ void displayToggleEnable(int bits)   {
 }
 
 
-void connect_display()   {
+void connectDisplay()   {
   displayByte(0x33, LCD_CMD);
   displayByte(0x32, LCD_CMD);
   displayByte(0x06, LCD_CMD);
