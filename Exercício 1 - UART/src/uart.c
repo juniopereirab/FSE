@@ -125,8 +125,13 @@ void requestUartString(int uart0_filestream){
 }
 
 void sendUartInteger(int uart0_filestream){
-    char payload[9] = {0xB1, 0x32, 0x00, 0x00, 0x00, 1, 4, 3, 8};
+    char payload[9];
+    int dado = 50;
+    char matricula[4] = {1, 4, 3, 8};
 
+    payload[0] = 0xB1;
+    memcpy(payload[1], &dado, 4);
+    memcpy(payload[5], &matricula, 4);
     printf("Buffers de memória criados!\n");
 
     writeUart(uart0_filestream, payload, 9);
@@ -134,8 +139,13 @@ void sendUartInteger(int uart0_filestream){
 }
 
 void sendUartFloat(int uart0_filestream){
-    char payload[9] = {0xB2, 0x42, 0x4A, 0x00, 0x00, 1, 4, 3, 8};
+    char payload[9];
+    float dado = 75.685;
+    char matricula[4] = {1, 4, 3, 8};
 
+    payload[0] = 0xB2;
+    memcpy(payload[1], &dado, 4);
+    memcpy(payload[5], &matricula, 4);
     printf("Buffers de memória criados!\n");
 
     writeUart(uart0_filestream, payload, 9);
@@ -143,8 +153,16 @@ void sendUartFloat(int uart0_filestream){
 }
 
 void sendUartString(int uart0_filestream){
+
+    char payload[9];
+    char dado[3] = {'o', 'l', 'a'};
+    char matricula[4] = {1, 4, 3, 8};
+
+    payload[0] = 0xB3;
+    payload[1] = 3;
+    memcpy(payload[2], &dado, 3);
+    memcpy(payload[5], &matricula, 4);
     
-    char payload[9] = {0xB3, 3, 'o', 'l', 'a', 1, 4, 3, 8};
     printf("Buffers de memória criados!\n");
 
     writeUart(uart0_filestream, payload, 9);
