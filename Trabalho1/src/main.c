@@ -115,7 +115,7 @@ void menu() {
         system("clear");
         printf("Como deseja que sua rotina funcione?\n1) Controle ON / OFF\n2) Controle PID\n");
         scanf("%d", &option);
-        while(option != 1 || option != 2){
+        while(option != 1 && option != 2){
             printf("Opção inválida. Escolha entre as disponíveis:\n\t1) Controle ON / OFF\n\t2) Controle PID\n");
             scanf("%d", &option);
         }
