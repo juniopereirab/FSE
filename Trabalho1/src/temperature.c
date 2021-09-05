@@ -64,9 +64,9 @@ struct bme280_dev connectBme() {
 
   dev.dev_id = BME280_I2C_ADDR_PRIM;
   dev.intf = BME280_I2C_INTF;
-  dev.read = user_i2c_read;
-  dev.write = user_i2c_write;
-  dev.delay_ms = user_delay_ms;
+  dev.read = userI2cRead;
+  dev.write = userI2cWrite;
+  dev.delay_ms = userDelayMs;
 
   if ((i2c_filestream = open(i2c_file, O_RDWR)) < 0) {
     exit(1);
