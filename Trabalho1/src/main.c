@@ -117,6 +117,7 @@ void menu() {
         scanf("%d", &option);
         option--;
         terminal = TRUE;
+        key_gpio = option;
     }
     else if(selection == 2){
         getchar();
@@ -152,7 +153,6 @@ void start_program(){
     connectDisplay();
     bme_connection = connectBme();
     uart_filestream = initUart();
-    system("clear");
 }
 
 int main() {
