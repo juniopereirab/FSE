@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include "gpio.h"
+#include "tcpClient.h"
 
 // Private functions signatures
 void checkPresenceGround();
@@ -73,22 +74,22 @@ void setDeviceState(int device, int state) {
 }
 
 void turnDevicesOff() {
-  change_device_state(LS_T01, LOW);
-  change_device_state(LS_T02, LOW);
-  change_device_state(LC_T, LOW);
-  change_device_state(AC_T, LOW);
-  change_device_state(ASP, LOW);
-  change_device_state(LS_101, LOW);
-  change_device_state(LS_102, LOW);
-  change_device_state(LC_1, LOW);
-  change_device_state(AC_1, LOW);
+  setDeviceState(LS_T01, LOW);
+  setDeviceState(LS_T02, LOW);
+  setDeviceState(LC_T, LOW);
+  setDeviceState(AC_T, LOW);
+  setDeviceState(ASP, LOW);
+  setDeviceState(LS_101, LOW);
+  setDeviceState(LS_102, LOW);
+  setDeviceState(LC_1, LOW);
+  setDeviceState(AC_1, LOW);
 }
 
 // Private functions to handlers
 
 void checkPresenceGround() {
     printf("Térreo - Sensor de Presença Ativado!!!\n");
-    send_command(SP_T);
+    sendCommand(SP_T);
 
     int sensorState = digitalRead(SP_T);
     int lampState = digitalRead(LC_T);
@@ -96,46 +97,46 @@ void checkPresenceGround() {
     if (sensorState == 1 && lampState == 0) {
         pinMode(LC_T, OUTPUT);
         digitalWrite(LC_T, HIGH);
-        send_command(LC_T);
+        sendCommand(LC_T);
 
         sleep(10);
 
         pinMode(LC_T, OUTPUT);
         digitalWrite(LC_T, LOW);
-        send_command(LC_T);
+        sendCommand(LC_T);
     }
 }
 
 void checkSmokeGround() {
     printf("Térro - Sensor de Fumaça Ativado!!! FOGOOO!!!\n");
-    send_command(SF_T);
+    sendCommand(SF_T);
 
     int sensorState = digitalRead(SF_T);
 
     if (sensorState == 1) {
         pinMode(ASP, OUTPUT);
         digitalWrite(ASP, HIGH);
-        send_command(ASP);
+        sendCommand(ASP);
     } else {
         pinMode(ASP, OUTPUT);
         digitalWrite(ASP, LOW);
-        send_command(ASP);
+        sendCommand(ASP);
     }
 }
 
 void checkWindow1Ground() {
     printf("Térreo - Sensor da Janela 1 Ativado!!!\n");
-    send_command(SJ_T01);
+    sendCommand(SJ_T01);
 }
 
 void checkWindow2Ground() {
     printf("Térreo - Sensor da Janela 2 Ativado!!!\n");
-    send_command(SJ_T02);
+    sendCommand(SJ_T02);
 }
 
 void checkDoorGround() {
     printf("Térreo - Sensor da Porta Ativado!!!\n");
-    send_command(SPo_T);
+    sendCommand(SPo_T);
 }
 
 void checkPeopleQuantityGround_IN() {
@@ -143,7 +144,7 @@ void checkPeopleQuantityGround_IN() {
 
     if (sensorState == 1) {
         printf("Térreo - Sensor de contagem interno ativado!!!\n");
-        send_command(SC_IN);
+        sendCommand(SC_IN);
         delay(280);
     }
 }
@@ -153,14 +154,14 @@ void checkPeopleQuantityGround_OUT() {
 
     if (sensorState == 1) {
         printf("Térreo - Sensor de contagem externo ativado!!!\n");
-        send_command(SC_OUT);
+        sendCommand(SC_OUT);
         delay(280);
     }
 }
 
 void checkPresenceFirstFloor() {
     printf("Primeiro andar - Sensor de Presença Ativado!!!\n");
-    send_command(SP_1);
+    sendCommand(SP_1);
 
     int sensorState = digitalRead(SP_1);
     int lampState = digitalRead(LC_1);
@@ -168,39 +169,39 @@ void checkPresenceFirstFloor() {
     if (sensorState == 1 && lampState == 0) {
         pinMode(LC_1, OUTPUT);
         digitalWrite(LC_1, HIGH);
-        send_command(LC_1);
+        sendCommand(LC_1);
 
         sleep(10);
 
         pinMode(LC_1, OUTPUT);
         digitalWrite(LC_1, LOW);
-        send_command(LC_1);
+        sendCommand(LC_1);
     }
 }
 
 void checkSmokeFirstFloor() {
     printf("Primeiro andar - Sensor de Fumaça Ativado!!! FOGOOO!!!\n");
-    send_command(SF_1);
+    sendCommand(SF_1);
 
     int sensorState = digitalRead(SF_1);
 
     if (sensorState == 1) {
         pinMode(ASP, OUTPUT);
         digitalWrite(ASP, HIGH);
-        send_command(ASP);
+        sendCommand(ASP);
     } else {
         pinMode(ASP, OUTPUT);
         digitalWrite(ASP, LOW);
-        send_command(ASP);
+        sendCommand(ASP);
     }
 }
 
 void checkWindow1FirstFloor() {
     printf("Primeiro andar - Sensor da Janela 1 Ativado!!!\n");
-    send_command(SJ_101);
+    sendCommand(SJ_101);
 }
 
 void checkWindow2FirstFloor() {
     printf("Primeiro andar - Sensor da Janela 2 Ativado!!!\n");
-    send_command(SJ_102);
+    sendCommand(SJ_102);
 }
