@@ -43,7 +43,7 @@ void dataInit() {
 }
 
 void devices_in_handler(int command) {
-  if (command == spT) {
+  if (command == SP_T) {
       if(_devIn.spT) {
         _devIn.spT = 0;
       }
@@ -104,7 +104,6 @@ void devices_in_handler(int command) {
   }
 
   else if (command == SJ_T02) {
-     = _devIn.sj_t02 == 1 ? 0 : 1;
     if(_devIn.sjT02){
         _devIn.sjT02 = 0;
     }
@@ -113,7 +112,7 @@ void devices_in_handler(int command) {
     }
   }
 
-  else if (command == SPoT) {
+  else if (command == SPo_T) {
     if(_devIn.spoT){
         _devIn.spoT = 0;
     }
@@ -150,7 +149,7 @@ void devices_in_handler(int command) {
         _devOut.lc1 = 1;
     }
     dev10sData.devOut = _devOut;
-    print_data(dev10sData);
+    printData(dev10sData);
   }
 
   else if (command == SF_1) {
