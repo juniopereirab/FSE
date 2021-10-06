@@ -10,9 +10,9 @@
 #include "csv.h"
 
 int main() {
-  quit_setup();
-  csv_setup();
-  app_init();
+  quitSetup();
+  csvSetup();
+  appInit();
 
   pthread_t tid[3];
 
