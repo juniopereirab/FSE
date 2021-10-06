@@ -9,7 +9,7 @@
 #include <fcntl.h>
 #include "gpio.h"
 #include "alarm.h"
-#include "socket_quit.h"
+#include "socketKiller.h"
 
 #define SERVER_DISTRIBUTED_IP "192.168.0.52"
 #define SERVER_DISTRIBUTED_1_PORT 31438

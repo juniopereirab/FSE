@@ -5,7 +5,7 @@
 #include "menu.h"
 #include "gpio.h"
 #include "csv.h"
-#include "socket_quit.h"
+#include "socketKiller.h"
 
 #define WIDTH 105
 #define HEIGHT 40
