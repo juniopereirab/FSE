@@ -219,7 +219,7 @@ void storeDevicesOutUpdate(DevicesOut devOutUpdated) {
 
   Data data = currentData();
   data.devOut = devOutUpdated;
-  print_data(data);
+  printData(data);
 
   int res = 1;
   if (data.devOut.lsT01 != _devOut.lsT01) {

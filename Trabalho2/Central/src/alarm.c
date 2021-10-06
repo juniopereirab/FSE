@@ -16,15 +16,15 @@ void* play() {
 }
 
 void alarmHandler() {
-  DevicesOut dev_out = recover_devices_out_data();
+  DevicesOut dev_out = recoverDevicesOutData();
 
   // Alarm active
   if (dev_out.alarm == 1) {
-    dev_out.alarm_playing = 1;
+    dev_out.alarmPlaying = 1;
     playing = 1;
     pthread_t alarm;
     pthread_create(&alarm, NULL, (void *)play, (void *)NULL);
-    store_devices_out_update(dev_out);
+    storeDevicesOutUpdate(dev_out);
   }
 }
 
