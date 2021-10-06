@@ -107,20 +107,20 @@ void printData(Data data) {
 
   mvwprintw(window, 19, 2, "Temperatura - Terreo: ");
   wattron(window, COLOR_PAIR(1));
-  mvwprintw(window, 19, 25, "%4.2f", data.dht22_ground_floor.temperature);
+  mvwprintw(window, 19, 25, "%4.2f", data.dht22GroundFloor.temperature);
 	wattroff(window, COLOR_PAIR(1));
   mvwprintw(window, 20, 2, "Umidade - Terreo: ");
 	wattron(window, COLOR_PAIR(1));
-  mvwprintw(window, 20, 25, "%4.2f", data.dht22_ground_floor.humidity);
+  mvwprintw(window, 20, 25, "%4.2f", data.dht22GroundFloor.humidity);
 	wattroff(window, COLOR_PAIR(1));
 
   mvwprintw(window, 19, 40, "Temperatura - Primeiro Andar: ");
   wattron(window, COLOR_PAIR(1));
-  mvwprintw(window, 19, 70, "%4.2f", data.dht22_first_floor.temperature);
+  mvwprintw(window, 19, 70, "%4.2f", data.dht22FirstFloor.temperature);
 	wattroff(window, COLOR_PAIR(1));
   mvwprintw(window, 20, 40, "Umidade     - Primeiro Andar: ");
 	wattron(window, COLOR_PAIR(1));
-  mvwprintw(window, 20, 70, "%4.2f", data.dht22_first_floor.humidity);
+  mvwprintw(window, 20, 70, "%4.2f", data.dht22FirstFloor.humidity);
 	wattroff(window, COLOR_PAIR(1));
 
 	mvwprintw(window, 25, 2, "Alarme Tocando: ");
@@ -185,7 +185,7 @@ void print_devices_in(DevicesIn devIn) {
   wrefresh(window);
 }
 
-void print_header() {
+void printHeader() {
 	wattron(window, COLOR_PAIR(4));
 	mvwprintw(window, 2, 15, "DISPOSITIVOS DE SAIDA");
 	wattroff(window, COLOR_PAIR(4));
@@ -260,11 +260,11 @@ void* menuHandler() {
                         else {
                             devOut.lsT01 = 1;
                         }
-                        char *device = "Térreo - Lâmpada da Sala 01";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.lsT01;
-                        writeData(command);
+                        char *device1 = "Térreo - Lâmpada da Sala 01";
+                        Command command1;
+                        command1.device = device1;
+                        command1.state = devOut.lsT01;
+                        writeData(command1);
                         break;
                     case 2:
                         if(devOut.lsT02){
@@ -273,11 +273,11 @@ void* menuHandler() {
                         else {
                             devOut.lsT02 = 1;
                         }
-                        char *device = "Térreo - Lâmpada da Sala 02";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.lsT02;
-                        writeData(command);
+                        char *device2 = "Térreo - Lâmpada da Sala 02";
+                        Command command2;
+                        command2.device = device2;
+                        command2.state = devOut.lsT02;
+                        writeData(command2);
                         break;
                     case 3:
                         if(devOut.lcT){
@@ -286,11 +286,11 @@ void* menuHandler() {
                         else {
                             devOut.lcT = 1;
                         }
-                        char *device = "Térreo - Lâmpadas do Corredor";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.lcT;
-                        writeData(command);
+                        char *device3 = "Térreo - Lâmpadas do Corredor";
+                        Command command3;
+                        command3.device = device3;
+                        command3.state = devOut.lcT;
+                        writeData(command3);
                         break;
                     case 4:
                         if(devOut.acT) {
@@ -299,11 +299,11 @@ void* menuHandler() {
                         else {
                             devOut.acT = 1;
                         }
-                        char *device = "Térreo - Ar-Condicionado";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.acT;
-                        writeData(command);
+                        char *device4 = "Térreo - Ar-Condicionado";
+                        Command command4;
+                        command4.device = device4;
+                        command4.state = devOut.acT;
+                        writeData(command4);
                         break;
                     case 5:
                         if(devOut.asp){
@@ -312,11 +312,11 @@ void* menuHandler() {
                         else{
                             devOut.asp = 1;
                         }
-                        char *device = "Térreo - Aspersores de Agua";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.asp;
-                        writeData(command);
+                        char *device5 = "Térreo - Aspersores de Agua";
+                        Command command5;
+                        command5.device = device5;
+                        command5.state = devOut.asp;
+                        writeData(command5);
                         break;
                     case 6:
                         if(devOut.ls101){
@@ -325,11 +325,11 @@ void* menuHandler() {
                         else {
                             devOut.ls101 = 1;
                         }
-                        char *device = "Primeiro Andar - Lâmpada da Sala 101";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.ls101;
-                        writeData(command);
+                        char *device6 = "Primeiro Andar - Lâmpada da Sala 101";
+                        Command command6;
+                        command6.device = device6;
+                        command6.state = devOut.ls101;
+                        writeData(command6);
                         break;
                     case 7:
                         if(devOut.ls102){
@@ -338,11 +338,11 @@ void* menuHandler() {
                         else {
                             devOut.ls102 = 1;
                         }
-                        char *device = "Primeiro Andar - Lâmpada da Sala 102";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.ls102;
-                        writeData(command);
+                        char *device7 = "Primeiro Andar - Lâmpada da Sala 102";
+                        Command command7;
+                        command7.device = device7;
+                        command7.state = devOut.ls102;
+                        writeData(command7);
                         break;
                     case 8:
                         if(devOut.lc1){
@@ -351,11 +351,11 @@ void* menuHandler() {
                         else {
                             devOut.lc1 = 1;
                         }
-                        char *device = "Primeiro Andar - Lâmpadas do Corredor";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.lc1;
-                        writeData(command);
+                        char *device8 = "Primeiro Andar - Lâmpadas do Corredor";
+                        Command command8;
+                        command8.device = device8;
+                        command8.state = devOut.lc1;
+                        writeData(command8);
                         break;
                     case 9:
                         if(devOut.ac1){
@@ -364,11 +364,11 @@ void* menuHandler() {
                         else {
                             devOut.ac1 = 1;
                         }
-                        char *device = "Primeiro Andar - Ar-Condicionado";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.ac1;
-                        writeData(command);
+                        char *device9 = "Primeiro Andar - Ar-Condicionado";
+                        Command command9;
+                        command9.device = device9;
+                        command9.state = devOut.ac1;
+                        writeData(command9);
                         break;
                     case 10:
                         if(devOut.alarm){
@@ -377,11 +377,11 @@ void* menuHandler() {
                         else {
                             devOut.alarm = 1;
                         }
-                        char *device = "Ativar o Alarme";
-                        Command command;
-                        command.device = device;
-                        command.state = devOut.alarm;
-                        writeData(command);
+                        char *device10 = "Ativar o Alarme";
+                        Command command10;
+                        command10.device = device10;
+                        command10.state = devOut.alarm;
+                        writeData(command10);
                         break;
                 }
 				storeDevicesOutUpdate(devOut);
