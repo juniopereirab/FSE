@@ -32,7 +32,7 @@ void processClientTcp(int clientId) {
         char *message = "Erro ao enviar mensagens!!";
         quitHandler(message);
         }
-        size = recv(clientId, buffer, 6, 0)
+        size = recv(clientId, buffer, 6, 0);
         if (size < 0) {
         char *message = "Erro ao receber mensagens!!";
         quitHandler(message);
