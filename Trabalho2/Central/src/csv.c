@@ -16,7 +16,7 @@ void timeGenerate() {
   time(&currentTime);
   timeInfo = localtime(&currentTime);
 
-  strftime(buffer, BUF_LEN, "%Y-%m-%d %H:%M:%S", timeInfo);
+  strftime(buffer, BUFFER_SIZE, "%Y-%m-%d %H:%M:%S", timeInfo);
 }
 
 void csvSetup() {
