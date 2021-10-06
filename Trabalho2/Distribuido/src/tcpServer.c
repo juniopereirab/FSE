@@ -8,8 +8,8 @@
 #include "dht22.h"
 #include "socketKiller.h"
 
-#define SERVER_DISTRIBUTED_1_PORT 31438
-#define SERVER_DISTRIBUTED_2_PORT 31638
+#define SERVER_DISTRIBUTED_1_PORT 31738
+#define SERVER_DISTRIBUTED_2_PORT 31838
 
 void processClient(int clientId) {
   char buffer[16];

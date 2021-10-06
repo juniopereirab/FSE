@@ -11,7 +11,7 @@
 #include "alarm.h"
 #include "socketKiller.h"
 
-#define SERVER_CENTRAL_PORT 31438
+#define SERVER_CENTRAL_PORT 31738
 
 void processClientTcp(int clientId) {
     char buffer[6];

@@ -12,8 +12,8 @@
 #include "socketKiller.h"
 
 #define SERVER_DISTRIBUTED_IP "192.168.0.52"
-#define SERVER_DISTRIBUTED_1_PORT 31438
-#define SERVER_DISTRIBUTED_2_PORT 31638
+#define SERVER_DISTRIBUTED_1_PORT 31738
+#define SERVER_DISTRIBUTED_2_PORT 31838
 
 int sendCommand(int device, int state, int floor) {
     struct sockaddr_in server_addr;
