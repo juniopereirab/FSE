@@ -14,8 +14,8 @@ void appInit() {
   DHT22 dht22;
   dht22.temperature = 0.0;
   dht22.humidity = 0.0;
-  appData.dht22_ground_floor = dht22;
-  appData.dht22_first_floor = dht22;
+  appData.dht22GroundFloor = dht22;
+  appData.dht22FirstFloor = dht22;
 }
 
 Data currentData() {
@@ -24,23 +24,23 @@ Data currentData() {
 
 void* appHandler() {
   while (1) {
-    DHT22 dht22_ground_floor = requestData(0);
-    DHT22 dht22_first_floor = requestData(1);
+    DHT22 dht22GroundFloor = requestData(0);
+    DHT22 dht22FirstFloor = requestData(1);
 
-    if (dht22_ground_floor.temperature > 0 && dht22_ground_floor.humidity > 0) {
-      appData.dht22_ground_floor = dht22_ground_floor;
+    if (dht22GroundFloor.temperature > 0 && dht22GroundFloor.humidity > 0) {
+      appData.dht22GroundFloor = dht22GroundFloor;
     }
 
-    if (dht22_first_floor.temperature > 0 && dht22_first_floor.humidity > 0) {
-      appData.dht22_first_floor = dht22_first_floor;
+    if (dht22FirstFloor.temperature > 0 && dht22FirstFloor.humidity > 0) {
+      appData.dht22FirstFloor = dht22FirstFloor;
     }
 
     DevicesOut devOut;
     devOut = recoverDevicesOutData();
     appData.devOut = devOut;
 
-    print_data(appData);
-    usleep(TIME_SLEEP);
+    printData(appData);
+    usleep(SLEEP_TIME);
   }
 
   return NULL;
