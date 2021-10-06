@@ -2,7 +2,7 @@
 #include <unistd.h>
 
 #include "gpio.h"
-#include "menu.h"
+#include "mainMenu.h"
 #include "alarm.h"
 #include "tcpClient.h"
 #include "application.h"

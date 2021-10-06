@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 
-#include "menu.h"
+#include "mainMenu.h"
 #include "gpio.h"
 #include "csv.h"
 #include "socketKiller.h"
