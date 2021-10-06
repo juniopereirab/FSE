@@ -42,7 +42,7 @@ void dataInit() {
   printDevicesIn(_devIn);
 }
 
-void devices_in_handler(int command) {
+void devicesInHandler(int command) {
   if (command == SP_T) {
       if(_devIn.spT) {
         _devIn.spT = 0;

@@ -131,7 +131,7 @@ void printData(Data data) {
   wrefresh(window);
 }
 
-void print_devices_in(DevicesIn devIn) {
+void printDevicesIn(DevicesIn devIn) {
   mvwprintw(window, 4, 50, "Terreo - Sensor de Presenca:");
 	wattron(window, COLOR_PAIR(devIn.spT == 1 ? 3 : 2));
 	mvwprintw(window, 4, 89, devIn.spT == 1 ? "ON " : "OFF");
